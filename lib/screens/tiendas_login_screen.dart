@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:puntos_ventas_tt/screens/screens.dart';
+import 'package:puntos_ventas_tt/utils/utils.dart';
 import 'package:puntos_ventas_tt/widgets/widgets.dart';
 
 class TiendasLoginScreen extends StatelessWidget {
@@ -8,30 +9,39 @@ class TiendasLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Pantalla 1',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Login Sucursal'),
-          backgroundColor: Colors.black,
-        ),
-        body: Stack(children: [
-          BackgroundImg(),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, //visualiza la vista a la mitad de la pantalla
-              children: const [
-                Text('Ventas Tlati',
-                    style:
-                        TextStyle(fontSize: 38, fontWeight: FontWeight.bold)),
-                SizedBox(height: 15),
-                _CardSelectTienda(),
-              ],
-            ),
+    return Scaffold(
+      body: Stack(children: [
+        BackgroundImg(),
+        Center(
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, //visualiza la vista a la mitad de la pantalla
+            children: const [
+              Text(
+                'Ventas Tlati',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 38,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 15),
+              _CardSelectTienda(),
+            ],
           ),
-        ]),
+        ),
+      ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+            color: Colores.secondaryColor, shape: BoxShape.circle),
+        child: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
+          onPressed: () {},
+        ),
       ),
     );
   }
@@ -44,6 +54,7 @@ class _CardSelectTienda extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final tiendaController = Provider.of<>(context);
     //propiedades background Card
     return Container(
       decoration: BoxDecoration(
@@ -52,7 +63,7 @@ class _CardSelectTienda extends StatelessWidget {
         //     begin: Alignment.topRight,
         //     end: Alignment.bottomLeft),
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white12,
+        color: Colors.white30,
       ),
       margin: const EdgeInsets.symmetric(
           horizontal: 20), //tamaño de ancho tarjeta (card)
@@ -72,13 +83,26 @@ class _CardSelectTienda extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.store_outlined,
                 color: Colors.white,
                 size: 30,
               ),
-              SizedBox(height: 15),
+              const SizedBox(width: 15),
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  items: const [
+                    DropdownMenuItem(value: '1', child: Text('Tienda')),
+                  ],
+                  value: '1',
+                  //items: getItemTiendas(context),
+                  isExpanded: true, borderRadius: BorderRadius.circular(25),
+                  decoration: const InputDecoration(border: InputBorder.none),
+
+                  onChanged: (value) {},
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -87,13 +111,25 @@ class _CardSelectTienda extends StatelessWidget {
               style: TextStyle(fontSize: 19, color: Colors.white)),
           const SizedBox(height: 10),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.shopping_cart_outlined,
                 color: Colors.white,
                 size: 30,
               ),
-              SizedBox(height: 10),
+              const SizedBox(width: 15),
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  items: const [
+                    DropdownMenuItem(value: '1', child: Text('Sucursal')),
+                  ],
+                  value: '1',
+                  //items: getItemTiendas(context),
+                  isExpanded: true, borderRadius: BorderRadius.circular(25),
+                  decoration: const InputDecoration(border: InputBorder.none),
+                  onChanged: (value) {},
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 15),
@@ -101,20 +137,18 @@ class _CardSelectTienda extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end, //pocisiona al boton
             children: [
               TextButton(
-                style: getCustomButtonStyle2(
+                style: StyleTexto.getCustomButtonStyle2(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     color: Colors.white),
                 child: const Text('Ingresar',
-                    style: TextStyle(fontSize: 19, color: Color(0xff204884))),
-                onPressed: () {
+                    style: TextStyle(color: Color(0xff204884), fontSize: 16)),
+                onPressed: () async {
                   //print('boton ingresar');
                   // const AyudaPventaScreen();
                   // Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AyudaPventaScreen()),
-                  );
+
+                  Navigator.pushReplacementNamed(
+                      context, AyudaPventaScreen.routePage);
                 },
               )
             ],
@@ -124,15 +158,3 @@ class _CardSelectTienda extends StatelessWidget {
     );
   }
 }
-
-ButtonStyle getCustomButtonStyle2({
-  EdgeInsets padding = const EdgeInsets.all(8),
-  Color color = const Color(0xff204884),
-}) =>
-    ButtonStyle(
-      elevation: MaterialStateProperty.all(5),
-      shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
-      backgroundColor: MaterialStateProperty.all(color),
-      padding: MaterialStateProperty.all(padding),
-    );

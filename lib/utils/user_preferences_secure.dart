@@ -74,18 +74,19 @@ class UserPreferencesSecure {
   }
 
   Future<bool> getPermiso(String permiso) async {
-    final value = await _storage.read(key: permiso) ?? '0';
+    //1 da permisos, 0 quita permisos
+    final value = await _storage.read(key: permiso) ?? '1'; //0
     return value == '1' ? true : false;
   }
 
   Future<bool> isAdmin() async {
-    bool pescritorio = await getPermiso('escritorio');
-    bool palmacen = await getPermiso('almacen');
-    bool pcompras = await getPermiso('compras');
-    bool pventas = await getPermiso('ventas');
-    bool pacceso = await getPermiso('acceso');
-    bool pconsultac = await getPermiso('consultaCompras');
-    bool pconsultav = await getPermiso('consultaVentas');
+    bool pescritorio = await getPermiso('Escritorio');
+    bool palmacen = await getPermiso('Almacen');
+    bool pcompras = await getPermiso('Compras');
+    bool pventas = await getPermiso('Ventas');
+    bool pacceso = await getPermiso('Acceso');
+    bool pconsultac = await getPermiso('Consulta Compras');
+    bool pconsultav = await getPermiso('Consulta Ventas');
     return (pescritorio &&
         palmacen &&
         pcompras &&

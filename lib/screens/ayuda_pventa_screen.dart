@@ -1,5 +1,5 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
-import 'package:puntos_ventas_tt/screens/screens.dart';
 import 'package:puntos_ventas_tt/utils/custom_launch.dart';
 import 'package:puntos_ventas_tt/widgets/widgets.dart';
 
@@ -9,25 +9,17 @@ class AyudaPventaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Ayuda'),
-        backgroundColor: Colors.black,
-        //boton regresar
-        // actions: [
-        //   IconButton(
-        //       icon: const Icon(Icons.arrow_back_ios),
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //                 builder: (context) => const TiendasLoginScreen()));
-        //       })
-        // ],
+    return DoubleBack(
+      message: 'Pulsa dos veces para cerrar',
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Ayuda'),
+          backgroundColor: Colors.black,
+        ),
+        drawer: DrawerMenu(routeActual: routePage), //menu de opciones
+        body: Stack(children: [BackgroundImg(), const _Ayudapv()]),
       ),
-      drawer: DrawerMenu(routeActual: routePage), //menu de opciones
-      body: Stack(children: [BackgroundImg(), const _Ayudapv()]),
     );
   }
 }
@@ -72,44 +64,9 @@ class _Ayudapv extends StatelessWidget {
                 CustomLaunch.launchWeb('ttland.com.mx/'); //manda a esa pagina
               },
             ),
-            //boton regresar
-            // IconButton(
-            //       icon: const Icon(Icons.arrow_circle_left_outlined,
-            //           size: 50, color: Color(0xff204884)),
-            //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => const TiendasLoginScreen()),
-            //         );
-            //       },
-            //     )
           ],
         ),
       ),
-      const SizedBox(height: 330),
-      Row(
-        children: [_BotonRegresar()],
-      ),
     ]);
-  }
-}
-
-class _BotonRegresar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: IconButton(
-        icon: const Icon(Icons.arrow_circle_left_outlined,
-            size: 70, color: Colors.black),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const TiendasLoginScreen()),
-          );
-        },
-      ),
-    );
   }
 }

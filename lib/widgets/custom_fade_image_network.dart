@@ -10,14 +10,13 @@ class CustomFadeImageNetwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imageUrl == '') {
-      return Image.asset('${Rutas.imageRute}/no_image.png',
-          fit: BoxFit.contain);
+      return Image.asset('${Rutas.imageRute}no_image.png', fit: BoxFit.contain);
     } else {
       return FadeInImage(
-        placeholder: AssetImage('${Rutas.imageRute}/image-loading.gif'),
+        placeholder: AssetImage('${Rutas.imageRute}image-loading.gif'),
         image: CachedNetworkImageProvider(imageUrl),
         imageErrorBuilder: (context, error, stackTrace) {
-          return Image.asset('${Rutas.imageRute}/image-error.png',
+          return Image.asset('${Rutas.imageRute}no_image.png',
               fit: BoxFit.contain);
         },
         fit: BoxFit.contain,
